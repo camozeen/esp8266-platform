@@ -1,0 +1,14 @@
+#!/bin/bash
+
+spushd () {
+    command pushd "$@" > /dev/null
+}
+
+spopd () {
+    command popd "$@" > /dev/null
+}
+
+source bin/ini_parser.sh
+process_ini_file 'env.conf'
+
+pio device monitor -b $(get_value 'serial' 'baud')

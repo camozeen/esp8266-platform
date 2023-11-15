@@ -1,0 +1,21 @@
+#!/bin/bash
+
+spushd () {
+    command pushd "$@" > /dev/null
+}
+
+spopd () {
+    command popd "$@" > /dev/null
+}
+
+source bin/ini_parser.sh
+process_ini_file 'env.conf'
+
+NETWORK_SSID=$(get_value 'network' 'ssid') \
+NETWORK_PASSWORD=$(get_value 'network' 'password') \
+NETWORK_HOSTNAME=$(get_value 'network' 'hostname') \
+SERIAL_BAUD=$(get_value 'serial' 'baud') \
+EEPROM_SIZE=$(get_value 'eeprom' 'size') \
+NTP_UTCOFFSET=$(get_value 'ntp' 'utcoffset') \
+NTP_POOL=$(get_value 'ntp' 'pool') \
+  pio run
